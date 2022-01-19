@@ -79,9 +79,7 @@ const store = createStore(reducer);
                     <Route path="*" element={<Error404 />} />
                     <Route path="/" element={<Inicio />} />
                     <Route path="/blog" element={<Blog />} />
-                    <Route path="/tienda" element={ <Tienda  
-                                                      agregarProductoAlCarrito = {agregarProductoAlCarrito}
-                                                      />} />
+                    <Route path="/tienda" element={ <Tienda />} />
                 </Routes>
           </main>
           <aside>
