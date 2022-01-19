@@ -5,7 +5,7 @@ const estadoInicial =  {
     {   id:3, nombre: "Producto 3" },
     {   id:4, nombre: "Producto 4" }
     ],
-    carrito: [1,2,3]
+    carrito: []
 }
 
 const reducer = (estado = estadoInicial, accion) =>{

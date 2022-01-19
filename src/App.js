@@ -11,7 +11,6 @@ import {createStore} from 'redux';
 import reducer from './reducers/tiendaReducer';
 
 const App = () => {
-const [carrito, setCarrito] = useState([]);
 
 const agregarProductoAlCarrito = (idProductoAgregar, nombre) =>{
     
@@ -64,7 +63,7 @@ const agregarProductoAlCarrito = (idProductoAgregar, nombre) =>{
 
 
 const store = createStore(reducer);
-console.log(store.getState());
+// console.log(store.getState());
 
   return ( 
      <Provider store={store}>
@@ -86,7 +85,7 @@ console.log(store.getState());
                 </Routes>
           </main>
           <aside>
-            <Carrito carrito={carrito}/>
+            <Carrito />
           </aside>
         </Contenedor>
       </Provider>
