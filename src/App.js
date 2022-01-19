@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { NavLink, Routes, Route } from 'react-router-dom';
 import Inicio from './Components/Inicio';
@@ -6,88 +6,36 @@ import Blog from './Components/Blog';
 import Tienda from './Components/Tienda';
 import Error404 from './Components/Error404';
 import Carrito from './Components/Carrito';
-import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import reducer from './reducers/tiendaReducer';
 
 const App = () => {
+  const store = createStore(reducer);
 
-const agregarProductoAlCarrito = (idProductoAgregar, nombre) =>{
-    
-    //Si el carrito no tiene elementos entonces agregamos uno.
-    if(carrito.length === 0){
-        setCarrito([{id: idProductoAgregar, nombre: nombre, cantidad: 1}]);
-    } else{
-      //De otra forma tenemos que revisar que el carrito no tenga ya el producto que queremos agregar.
-      //Si ya lo tiene entonces queremos actualizar a su valor.
-      //si no tiene el producto entonces lo agregamos.
-     
-      //Para editar el arreglo tenemos que clonarlo.
-      const nuevoCarrito = [...carrito];
-
-      //Comprobamos si el carrito ya tiene el ID del producto a agregar.
-      const yaEstaEnCarrito =   nuevoCarrito.filter((productoDeCarrito) => {
-            return productoDeCarrito.id === idProductoAgregar 
-        }).length > 0;
-
-        //Si ya tiene el producto entonces lo tenemos que actualizar.
-        if(yaEstaEnCarrito){
-            //Para ello tenemos que buscarlo, obtener su posición en el arreglo.
-            //y en base a su posición ya actualizamos el valor.
-            nuevoCarrito.forEach((productoDeCarrito, index) =>{
-                if(productoDeCarrito.id === idProductoAgregar){
-                    const cantidad = nuevoCarrito[index].cantidad
-                    nuevoCarrito[index] = 
-                    {
-                      id: idProductoAgregar, 
-                      nombre: nombre, 
-                      cantidad: cantidad + 1
-                    }
-                }
-            })
-            //De otra forma entonces agregamos el producto al arreglo
-        }else{
-          nuevoCarrito.push({
-            id: idProductoAgregar,
-            nombre: nombre,
-            cantidad: 1
-          });
-        }
-
-        //Por ultimo actualizamos el carrito.
-        setCarrito(nuevoCarrito);
-      
-    }
-}
-
-
-
-const store = createStore(reducer);
-// console.log(store.getState());
-
-  return ( 
-     <Provider store={store}>
+  return (
+    <Provider store={store}>
       <Contenedor>
-          <Menu>
-            <NavLink to="/">Inicio</NavLink>
-            <NavLink to="/blog">Blog</NavLink>
-            <NavLink to="/tienda">Tienda</NavLink>
-          </Menu>
+        <Menu>
+          <NavLink to="/">Inicio</NavLink>
+          <NavLink to="/blog">Blog</NavLink>
+          <NavLink to="/tienda">Tienda</NavLink>
+        </Menu>
 
-          <main>
-                <Routes>
-                    <Route path="*" element={<Error404 />} />
-                    <Route path="/" element={<Inicio />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/tienda" element={ <Tienda />} />
-                </Routes>
-          </main>
-          <aside>
-            <Carrito />
-          </aside>
-        </Contenedor>
-      </Provider>
-   );
+        <main>
+          <Routes>
+            <Route path="*" element={<Error404 />} />
+            <Route path="/" element={<Inicio />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/tienda" element={<Tienda />} />
+          </Routes>
+        </main>
+        <aside>
+          <Carrito />
+        </aside>
+      </Contenedor>
+    </Provider>
+  );
 }
 
 const Contenedor = styled.div`
@@ -102,7 +50,7 @@ const Contenedor = styled.div`
     border-radius: 10px;
     box-shadow: 0px 0px 5px rgba(129, 129, 129, 0.1);
 `;
- 
+
 const Menu = styled.nav`
     width: 100%;
     text-align: center;
@@ -121,5 +69,5 @@ const Menu = styled.nav`
         text-decoration: none;
     }
 `;
- 
+
 export default App;
